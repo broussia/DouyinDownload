@@ -44,4 +44,4 @@ def save_in_database():
     douyin_data.close()
 
 
-save_in_database()
+# save_in_database()
