@@ -1,5 +1,6 @@
-import os, json, requests, time
 import pymysql
+import requests
+import time
 
 
 def download():
