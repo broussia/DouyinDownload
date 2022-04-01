@@ -1,6 +1,7 @@
 from appium import webdriver
 from appium.webdriver.common.appiumby import By
 import time
+import requests
 
 
 def operation():
@@ -18,26 +19,32 @@ def operation():
         # 'app': r'd:\apk\bili.apk',
     }
 
+    # 从服务器中获得用户的ID
+    response = requests.get("http://10.3.200.45:5000/v1/douyinID/send")
+    douyinID = response.text.split('"')[3]
+
     # 连接Appium Server，初始化自动化环境
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     # 设置缺省等待时间
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(100)
 
     # 根据id定位搜索位置框，点击
     # driver.find_element(By.ID, 'lg4') .click()
 
     # 单击搜素按钮，进入搜素界面，搜索 ‘f1’之后进入第一个用户的主页，上滑若干次
     # search =
+    # douyinID = "f1"
     driver.find_element(By.ID, 'com.ss.android.ugc.aweme:id/d+r').click()
-    driver.find_element(By.ID, 'com.ss.android.ugc.aweme:id/et_search_kw').send_keys("f1")
+    driver.find_element(By.ID, 'com.ss.android.ugc.aweme:id/et_search_kw').send_keys(douyinID)
     driver.find_element(By.ID, 'com.ss.android.ugc.aweme:id/k4g').click()
     # time.sleep(5)
     # driver.tap([(507, 191)], 10)
     code1 = 'new UiSelector().text("用户").resourceId("android:id/text1")'
     driver.find_element_by_android_uiautomator(code1).click()
     code2 = 'new UiSelector().descriptionContains("F1世界锦标赛官方账号")'
-    driver.find_element_by_android_uiautomator(code2).click()
+    code3 = 'new UiSelector().resourceId("com.ss.android.ugc.aweme:id/akl")'
+    driver.find_element_by_android_uiautomator(code3).click()
     for i in range(20):
         driver.swipe(900, 1575, 900, 400, 800)
         time.sleep(1)
@@ -46,3 +53,5 @@ def operation():
     driver.quit()
     return
 
+
+operation()
