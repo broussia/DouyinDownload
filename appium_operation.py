@@ -20,7 +20,7 @@ def operation():
     }
 
     # 从服务器中获得用户的ID
-    response = requests.get("http://10.3.200.45:5000/v1/douyinID/send")
+    response = requests.get("http://8.218.23.31:5000/v1/douyinID/send")
     douyinID = response.text.split('"')[3]
 
     # 连接Appium Server，初始化自动化环境
@@ -45,9 +45,9 @@ def operation():
     code2 = 'new UiSelector().descriptionContains("F1世界锦标赛官方账号")'
     code3 = 'new UiSelector().resourceId("com.ss.android.ugc.aweme:id/akl")'
     driver.find_element_by_android_uiautomator(code3).click()
-    for i in range(20):
+    for i in range(200):
         driver.swipe(900, 1575, 900, 400, 800)
-        time.sleep(1)
+        time.sleep(2)
     # //androidx.appcompat.app.a.b[3]
     # input('**** Press to quit..')
     driver.quit()

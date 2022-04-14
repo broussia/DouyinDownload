@@ -10,7 +10,7 @@ def download():
         host="127.0.0.1",
         port=3306,
         user="root",
-        password="Qilei990406!",
+        password="123456",
         charset="utf8mb4",
         database="douyindata"
     )
@@ -35,4 +35,4 @@ def download():
         count += 1  # 计数+1
 
 
-# download()
+download()

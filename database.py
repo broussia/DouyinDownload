@@ -11,7 +11,7 @@ def save_in_database():
         host="127.0.0.1",
         port=3306,
         user="root",
-        password="Qilei990406!",
+        password="123456",
         charset="utf8mb4",
         database="douyindata"
     )
@@ -44,4 +44,4 @@ def save_in_database():
     douyin_data.close()
 
 
-# save_in_database()
+save_in_database()
