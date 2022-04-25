@@ -2,6 +2,7 @@ from appium import webdriver
 from appium.webdriver.common.appiumby import By
 import time
 import requests
+from appium.webdriver.common.touch_action import TouchAction
 
 
 def operation():
@@ -18,13 +19,25 @@ def operation():
         'automationName': 'UiAutomator2'
         # 'app': r'd:\apk\bili.apk',
     }
-
+    desired_caps2 = {
+        'platformName': 'Android',  # 被测手机是安卓
+        'platformVersion': '7.1.2',  # 手机安卓版本
+        'deviceName': 'xxx',  # 设备名，安卓手机可以随意填写
+        'appPackage': 'com.ss.android.ugc.aweme',  # 启动APP Package名称
+        'appActivity': '.main.MainActivity',  # 启动Activity名称
+        'unicodeKeyboard': True,  # 使用自带输入法，输入中文时填True
+        'resetKeyboard': True,  # 执行完程序恢复原来输入法
+        'noReset': True,  # 不要重置App
+        'newCommandTimeout': 6000,
+        'automationName': 'UiAutomator2'
+        # 'app': r'd:\apk\bili.apk',
+    }
     # 从服务器中获得用户的ID
     response = requests.get("http://8.218.23.31:5000/v1/douyinID/send")
     douyinID = response.text.split('"')[3]
-
+    print(douyinID)
     # 连接Appium Server，初始化自动化环境
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps2)
 
     # 设置缺省等待时间
     driver.implicitly_wait(100)
@@ -46,8 +59,16 @@ def operation():
     code3 = 'new UiSelector().resourceId("com.ss.android.ugc.aweme:id/akl")'
     driver.find_element_by_android_uiautomator(code3).click()
     for i in range(200):
-        driver.swipe(900, 1575, 900, 400, 800)
-        time.sleep(2)
+        # 使用try catch 跳过异常
+        try:
+            width = driver.get_window_size()['width']
+            height = driver.get_window_size()['height']
+            driver.swipe(width / 2, height * 9 / 10, width / 2, height / 10, 1)
+            # driver.swipe(900, 1575, 900, 400, 200)
+        except Exception as e:
+            print(e)
+        # time.sleep(2)
+
     # //androidx.appcompat.app.a.b[3]
     # input('**** Press to quit..')
     driver.quit()

@@ -29,8 +29,7 @@ def save_in_database():
             # print("now link is " + str(count))
             print(count)
             count += 1
-            sql = 'insert into douyindata.videos (ID,Url,addTime,title) values ({},\'{}\',{},\'{}\')'.format(video_ID, video_url,
-                                                                                                video_getTime, video_title)
+            sql = 'insert into douyindata.videos (ID,Url,title) values ({},\'{}\',\'{}\')'.format(video_ID, video_url,video_title)
             # print(sql)
             # cursor.execute(sql)
             try:
